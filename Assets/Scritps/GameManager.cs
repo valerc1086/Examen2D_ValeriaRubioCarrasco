@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.WSA;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,12 +9,14 @@ public class GameManager : MonoBehaviour
     public TMP_Text textoVidas;
     public Transform monedas;
 
+    private int contVidas = 3;
+
     private int puntos;
     private int vidas;
     void Start()
     {
-        puntos = //transform.GetComponentInChildren<monedas.GetComponent("monedas")>().text;
-        vidas = 3;
+        puntos = 0;
+        vidas = contVidas;
         textoPuntos.text = "0";
         textoVidas.text = "3";
     }
@@ -26,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     public void RestaVida()
     {
+        contVidas--;
         if(vidas > 0)
         {
             vidas--;
