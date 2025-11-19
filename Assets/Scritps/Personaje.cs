@@ -37,7 +37,7 @@ public class Personaje : MonoBehaviour
         rb2d.linearVelocity = new Vector2(movimientoX * velocidad, rb2d.linearVelocity.y);
         if(movimientoX == 0)
         {
-            //animator.SetBool();
+            animator.SetBool("estaCorriendo",false);
         }
     }
 
@@ -49,7 +49,7 @@ public class Personaje : MonoBehaviour
     private void OnMove(InputValue inputMovimiento)
     {
         movimientoX = inputMovimiento.Get<Vector2>().x;
-        //animator.SetBool();
+        animator.SetBool("estaCorriendo",true);
 
         if(movimientoX != 0)
         {
@@ -69,16 +69,22 @@ public class Personaje : MonoBehaviour
     {
         if (collision.transform.CompareTag("Enemigo"))
         {
+            FindAnyObjectByType<GameManager>().RestaVida();
             StartCoroutine(ReiniciarNivel());
+            
         }
         if (collision.transform.CompareTag("SueloMorir"))
         {
+            FindAnyObjectByType<GameManager>().RestaVida();
             StartCoroutine(ReiniciarNivel());
+            
         }
         if (collision.transform.CompareTag("Moneda"))
         {
+
             Destroy(collision.gameObject);
-            Fin
+            FindAnyObjectByType<GameManager>().SumaPuntos();
+            audioSource.PlayOneShot(getMoneda);
         }
     }
 
